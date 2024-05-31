@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digi Drive - Personal Information Form</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 450px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+        .container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 24px;
+            border-bottom: 2px solid #6e8efb;
+            padding-bottom: 10px;
+        }
+        .container input {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+        .container input:focus {
+            border-color: #6e8efb;
+            outline: none;
+        }
+        .container button {
+            width: 100%;
+            padding: 15px;
+            background-color: #6e8efb;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+        .container button:hover {
+            background-color: #5a7deb;
+        }
+        .error {
+            color: red;
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Digi Drive Personal Information Form</h2>
+    <form id="personalInfoForm">
+        <input type="text" id="name" name="name" placeholder="Name" required>
+        <input type="text" id="username" name="username" placeholder="Username" required>
+        <input type="tel" id="phone" name="phone" placeholder="Phone Number" required>
+        <input type="text" id="age" name="age" placeholder="Age" required>
+        <input type="text" id="aadhaar" name="aadhaar" placeholder="Aadhaar Card Details" required>
+        <input type="text" id="address" name="address" placeholder="Your Address" required>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('personalInfoForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const username = document.getElementById('username').value;
+        const phone = document.getElementById('phone').value;
+        const age = document.getElementById('age').value;
+        const aadhaar = document.getElementById('aadhaar').value;
+        const address = document.getElementById('address').value;
+
+        const data = `
+            Name: ${name}\n
+            Username: ${username}\n
+            Phone Number: ${phone}\n
+            Age: ${age}\n
+            Aadhaar Card Details: ${aadhaar}\n
+            Address: ${address}
+        `;
+
+        const blob = new Blob([data], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = 'personal_information.txt';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+    });
+</script>
+
+</body>
+</html>
